@@ -11,8 +11,8 @@ const app = express();
 
 app.use(compression());
 app.disable("x-powered-by");
-// A reverse proxy on this machine (Caddy) is in front of us: believe its X-Forwarded-* headers.
-app.set("trust proxy", "loopback");
+// Caddy is in front of us, on this machine or across Docker's private network: believe its X-Forwarded-* headers.
+app.set("trust proxy", "loopback, uniquelocal");
 
 if (DEVELOPMENT) {
   console.log("Starting development server");
